@@ -55,7 +55,7 @@ module.exports.updateProfile = async function (req, res) {
     const updateData = req.body;
     const data = await Patient.findByIdAndUpdate(patId, updateData);
     if (data) {
-        return res.status(200).json({ message: "successfully updated to databse", doc: doc });
+        return res.status(200).json({ message: "successfully updated to databse", doc: data });
     }
     return res.status(401).json({ error: true, msg: 'error occured during updation' });
 

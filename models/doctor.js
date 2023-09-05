@@ -22,10 +22,6 @@ const doctorSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    pincode:{
-        type:Number,
-        required:true
-    },
     dist:{
         type:String,
         required:true
@@ -50,7 +46,7 @@ const doctorSchema = new mongoose.Schema({
     dept:{
         type: mongoose.Schema.Types.ObjectId,
         ref:"Dept",
-        required:true
+        // required:true
     }
 
 });

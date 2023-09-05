@@ -34,7 +34,8 @@ module.exports.signIn = async function(req,res){
     }
     else{
         const compare = await bcryptjs.compare(req.body.password,admin.password);
-        if(compare) res.status(200).json({message:"Authentication Successfull",})
+        const token = jwt.sign({admin:admin._id},"kritishreehellop",{expiresIn:'6d'});
+        if(compare) res.status(200).json({message:"Authentication Successfull",token:token})
         else res.status(404).json({message:"user id and password getting wrong"});
     }
 }
@@ -44,7 +45,7 @@ module.exports.updateProfile = async function(req,res){
     const updateData = req.body;
     const data = await BillHistory.findByIdAndUpdate(adminId, updateData);
         if(data){
-            return res.status(200).json({ message: "successfully updated to databse", adm: adm });
+            return res.status(200).json({ message: "successfully updated to databse", adm: data });
          }
         else{
             return res.status(401).json({ error: true, msg: 'user not exist' });
@@ -117,6 +118,7 @@ module.exports.removeDoctorPatient = async function(req,res){
     else res.status(400).json({message:"errror occuringin deletion"});
     
 }
+/*  find the total  */
 module.exports.total = async function(req,res){
     const tot = await Patient.countDocuments();
     const totDoc = await Doctor.countDocuments();

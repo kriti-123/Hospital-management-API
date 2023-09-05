@@ -23,7 +23,7 @@ const patientSchema = new mongoose.Schema({
         required:true
     },
     pincode:{
-        type:Number,
+        type:String,
         required:true
     },
     dist:{
