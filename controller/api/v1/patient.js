@@ -35,7 +35,10 @@ module.exports.signIn = async function (req, res) {
     }
     else {
         const compare = await bcryptjs.compare(req.body.password, doctor.password);
-        if (compare) res.status(200).json({ message: "Authentication Successfull", })
+        if (compare){
+            const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1h' });
+            res.status(200).json({ message: "Authentication Successfull",token:token })
+        }
         else res.status(404).json({ message: "user id and password getting wrong" });
     }
 }
@@ -104,25 +107,6 @@ module.exports.feedback = async function(req,res){
 }
 
 
-
-/*  
-1. Patient Home – Patient can view his profile
-2. Current Appointment – Patient can view if he has some pending or approved appointment with a doctor
-3. Bills History – Patient can view the bill history of appointments that have been completed
-4. Treatment History – Patient can view the treatment history of appointments which have been completed
-5. Take Appointment – Patient can view all the departments, 
-   and then can select one dept. Then the doctors of that dept are shown. 
-   Then patient selects one doctor and the doctor’s profile is then shown along with
-   a ‘take appointment’ button. 
-   When the button is clicked, the free slots of that particular doctor are shown.
-   Patient selects a free slot of his choice and then sends request for that free slot to the doctor. The doctor will then approve/reject it.
-6. Notifications – In this tab, a notification is shown whenever the doctor 
-   accepts/rejects the requested appointment.
-7. Feedback – After a appointment is completed, patient can give feedback 
-   about that appointment by rating it from 1 – 5
-8. A patient can request for only one appointment at a time 
-   and will not be allowed to take more than one appointments until the last appointment has been completed.
-*/
 
 
 
