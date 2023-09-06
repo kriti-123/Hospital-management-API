@@ -4,12 +4,12 @@ const adminController = require('../../../controller/api/v1/admin');
 const router = express.Router();
 const validations = require('../../../validations/admin');
 const { validate } = require('express-validation');
+const auth = require('../../../middleware/auth')
 
-
-router.post('/signUp',validate(validations.createOrUpdateDetail),adminController.signUp);
-router.post('/signIn',validate(validations.signIn),adminController.signIn);
+router.post('/signUp',adminController.signUp);
+router.post('/signIn',auth.authenticate,adminController.signIn);
 router.get('/adminProfile/:id',adminController.adminProfile);
-router.put('/updateAdmin/:id',validate(validations.createOrUpdateDetail),adminController.updateProfile);
+router.put('/updateAdmin/:id',adminController.updateProfile);
 router.get('/appointmentList',adminController.appointmentsList);
 router.get('/patientList',adminController.patientList);
 router.get('/doctorList',adminController.doctorList);

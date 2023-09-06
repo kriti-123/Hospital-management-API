@@ -36,7 +36,7 @@ module.exports.signIn = async function (req, res) {
     else {
         const compare = await bcryptjs.compare(req.body.password, doctor.password);
         if (compare){
-            const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1h' });
+            const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1d' });
             res.status(200).json({ message: "Authentication Successfull",token:token })
         }
         else res.status(404).json({ message: "user id and password getting wrong" });
