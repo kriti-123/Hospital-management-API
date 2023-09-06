@@ -8,13 +8,13 @@ const auth = require('../../../middleware/auth')
 
 router.post('/signUp',adminController.signUp);
 router.post('/signIn',auth.authenticate,adminController.signIn);
-router.get('/adminProfile/:id',adminController.adminProfile);
-router.put('/updateAdmin/:id',adminController.updateProfile);
+router.get('/:id',adminController.adminProfile);
+router.put('/:id',adminController.updateProfile);
 router.get('/appointmentList',adminController.appointmentsList);
 router.get('/patientList',adminController.patientList);
 router.get('/doctorList',adminController.doctorList);
 router.get('/profile/:id',adminController.viewFullProfile);
 router.get('/search',validate(validations.search),adminController.searchFilter);
-router.delete('/remove/:id',adminController.removeDoctorPatient);
+router.delete('/:id',adminController.removeDoctorPatient);
 router.get('/total',adminController.total);
 module.exports = router;
